@@ -1,0 +1,37 @@
+How to get the names of files in a folder and its subfolders and insert them on an excel sheet
+
+
+#Option1
+
+Sub Dir_List()
+
+    Dim fileSpec As String, files As Variant
+    
+    fileSpec = "C:\Users\xx'CHANGE AS NEEDED
+    
+    files = Split(CreateObject("wscript.shell").Exec("cmd /c dir """ & fileSpec & """ /b/s").StdOut.ReadAll, vbCrLf)
+    ActiveSheet.Cells.ClearContents
+    ActiveSheet.Range("A1").Resize(UBound(files)).Value = Application.WorksheetFunction.Transpose(files)
+
+End Sub
+
+
+
+#Option 2
+Sub FileNames()
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+Dim rng As Range
+Set rng = Sheet1.[A1]
+
+strn = "G:\My Drive\folder" #Change folder name!
+Set Folder = objFSO.GetFolder(strn)
+
+For Each file In Folder.Files
+    rng.Value = file.Name
+    Set rng = rng.Offset(1, 0)
+    
+Next file
+End Sub
+
+
+
