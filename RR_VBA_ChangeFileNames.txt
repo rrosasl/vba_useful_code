@@ -1,0 +1,12 @@
+Sub ChangeWindowsNames()
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+strn = "G:\My Drive\folder" #Change name!
+Set Folder = objFSO.GetFolder(strn)
+
+For Each file In Folder.Files
+    file.Name = Left(file.Name, Len(file.Name) - 5) + "_addExtension.xlsx"
+
+Next file
+End Sub
+
+
